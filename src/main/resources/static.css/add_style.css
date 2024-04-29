@@ -1,0 +1,36 @@
+/* styles.css */
+
+/* Center all text in the body */
+body {
+    text-align: center;
+    background-color: black; /* Set the background color to black */
+    color: white; /* Set text color to white */
+}
+
+/* Add spacing between elements */
+label, input, button, a {
+    display: block;
+    margin: 7px auto; /* Add vertical spacing between elements and center them */
+}
+
+/* Style input fields */
+input[type="text"] {
+    border: 1px solid #007BFF; /* Add a border to input fields with the same color as the buttons */
+    border-radius: 5px; /* Add rounded corners to input fields */
+}
+
+/* Style buttons */
+button, a {
+    text-decoration: none; /* Remove underlines */
+    padding: 10px 20px; /* Add padding to create a button-like appearance */
+    background-color: #007BFF; /* Background color for the buttons */
+    color: white; /* Text color for the buttons */
+    border: none; /* Remove the default button border */
+    border-radius: 5px; /* Add rounded corners to buttons */
+    display: inline-block; /* Make buttons inline elements to align horizontally */
+    margin: 10px; /* Add some space between the buttons */
+}
+
+button:hover, a:hover {
+    background-color: #0056b3; /* Change background color on hover */
+}
