@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Employee</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        .language-input {
+            margin-bottom: 16px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            color: #4caf50;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <!-- Your existing link to external CSS -->
+</head>
+<body>
+<h1>Add Employee</h1>
+<form th:action="@{/add}" method="post">
+    <!-- Display validation error -->
+    <div th:if="${error}" class="error" th:text="${error}"></div>
+    <label for="id">ID : </label>
+    <input id="id" name="employeeID" th:type="text">
+
+    <label for="firstName">First Name : </label>
+    <input id="firstName" name="firstName" th:type="text">
+
+    <label for="lastName">Last Name : </label>
+    <input id="lastName" name="lastName" th:type="text">
+
+    <label for="designation">Designation : </label>
+    <input id="designation" name="designation" th:type="text">
+
+    <div id="languages-container">
+        <!-- Initial language input field -->
+        <div class="language-input">
+            <label for="language">Enter a language:</label>
+            <input type="text" id="language" name="knownLanguages[0].languageName" class="language">
+            <label for="score">Enter a score:</label>
+            <input type="number" id="score" name="knownLanguages[0].scoreOutof100" class="score" min="0" max="100">
+        </div>
+    </div>
+    <button type="button" onclick="addLanguage()">Add Language</button>
+    <br>
+
+    <button type="submit">Add</button>
+    <a href="/">Back</a>
+</form>
+<!-- Update the JavaScript code -->
+<script>
+        var languageIndex = 1; // Start with 1 as the initial index
+
+        function addLanguage() {
+            var container = document.getElementById("languages-container");
+            var newLanguageInput = document.createElement("div");
+            newLanguageInput.classList.add("language-input");
+            newLanguageInput.innerHTML = `
+                <label for="language">Enter a language:</label>
+                <input type="text" name="knownLanguages[${languageIndex}].languageName" class="language">
+                <label for="score">Enter a score:</label>
+                <input type="number" name="knownLanguages[${languageIndex}].scoreOutof100" class="score" min="0" max="100">
+            `;
+            container.appendChild(newLanguageInput);
+            languageIndex++; // Increment the index for the next language
+        }
+    </script>
+</body>
+</html>

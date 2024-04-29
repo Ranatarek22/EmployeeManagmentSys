@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Employees</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/search_style.css}" href="/css/search_style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 10px;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        form button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>Search Employees</h1>
+<form th:action="@{/search}" method="post">
+    <label for="id">ID:</label>
+    <input id="id" name="id" th:type="text">
+
+    <label for="designation">Designation:</label>
+    <input id="designation" name="designation" th:type="text">
+
+    <button type="submit">Search</button>
+</form>
+<p th:if="${numberOfResults > 0}" th:text="'Number of Found Employees: ' + ${numberOfResults}"></p>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Designation</th>
+        <th>Languages</th> <!-- Add a new column for languages -->
+        <th>The scoreOutof100</th>
+    </tr>
+    <tr th:each="result : ${results}">
+        <td th:text="${result.employeeID}"></td>
+        <td th:text="${result.firstName}"></td>
+        <td th:text="${result.lastName}"></td>
+        <td th:text="${result.designation}"></td>
+        <td>
+            <!-- Iterate through knownLanguages and display language details -->
+            <ul>
+                <li th:each="language : ${result.knownLanguages}">
+                    <span th:text="${language.languageName}"></span>
+                </li>
+            </ul>
+        </td>
+
+        <td>
+            <!-- Iterate through knownLanguages and display language details -->
+            <ul>
+                <li th:each="language : ${result.knownLanguages}">
+                    <span th:text="${language.scoreOutof100}"></span>
+                </li>
+            </ul>
+        </td>
+
+        <td>
+            <form th:action="@{/delete/{id}(id=${result.employeeID})}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+            <form th:action="@{/update/{id}(id=${result.employeeID})}" method="get">
+                <button type="submit">Update</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

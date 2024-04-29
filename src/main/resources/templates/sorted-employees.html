@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Sorted Employees list</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/search_style.css}" href="/css/search_style.css">
+</head>
+<body>
+<h1>Sorted Employees list</h1>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Designation</th>
+    <th>Languages</th>
+    <th>ScoreOutOf100</th>
+  </tr>
+
+  <tr th:each="employee : ${sortedEmployees}">
+    <td th:text="${employee.employeeID}"></td>
+    <td th:text="${employee.firstName}"></td>
+    <td th:text="${employee.lastName}"></td>
+    <td th:text="${employee.designation}"></td>
+    <td>
+      <ul>
+        <li th:each="language : ${employee.knownLanguages}">
+          <span th:text="${language.languageName}"></span>
+        </li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li  th:each="language : ${employee.knownLanguages}">
+          <span th:text="${language.scoreOutof100}"></span>
+        </li>
+      </ul>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
